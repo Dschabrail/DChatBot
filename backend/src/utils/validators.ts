@@ -17,12 +17,19 @@ const validate = (validations: ValidationChain[]) => {
   };
 };
 
+const loginValidator = [
+    body("email").trim().isEmail().withMessage("Email is reuqired"),
+    body("password")
+      .trim()
+      .isLength({ min: 6 })
+      .withMessage("Password should contain atleast 6 characters"),
+  ];
+
 const signupValidator = [
   body("name").notEmpty().withMessage("Name is reuired"),
-  body("email").trim().isEmail().withMessage("Email is reuqired"),
-  body("password")
-    .trim()
-    .isLength({ min: 6 })
-    .withMessage("Password should contain atleast 6 characters"),
+  ...loginValidator,
 ];
-export { validate, signupValidator };
+
+
+
+export { validate, signupValidator, loginValidator };
